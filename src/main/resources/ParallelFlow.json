@@ -1,0 +1,82 @@
+{
+  "flowName": "预约活动",
+  "startTime": "2023-12-12 12:12:12",
+  "nodes": [
+    {
+      "name": "ParallelNode-1",
+      "type": "ParallelNode",
+      "parallelNodes": [
+        {
+          "name": "defaultNode-1-1",
+          "type": "default",
+          "props": {
+
+          }
+        },
+        {
+          "name": "defaultNode-1-2",
+          "type": "default",
+          "props": {
+          }
+        }
+      ]
+    },
+    {
+      "name": "ParallelNode-2",
+      "type": "ParallelNode",
+      "parallelNodes": [
+        {
+          "name": "defaultNode-2-1",
+          "type": "default",
+          "props": {
+
+          }
+        },
+        {
+          "name": "defaultNode-2-2",
+          "type": "default",
+          "props": {
+          }
+        }
+      ]
+    },
+    {
+      "name": "ParallelNode-3",
+      "type": "ParallelNode",
+      "parallelNodes": [
+        {
+          "name": "defaultNode-3-1",
+          "type": "default",
+          "props": {
+
+          }
+        },
+        {
+          "name": "defaultNode-3-2",
+          "type": "default",
+          "props": {
+          }
+        }
+      ]
+    },
+    {
+      "name": "ParallelNode-4",
+      "type": "ParallelNode",
+      "parallelNodes": [
+        {
+          "name": "defaultNode-4-1",
+          "type": "default",
+          "props": {
+
+          }
+        },
+        {
+          "name": "defaultNode-4-2",
+          "type": "default",
+          "props": {
+          }
+        }
+      ]
+    }
+  ]
+}
