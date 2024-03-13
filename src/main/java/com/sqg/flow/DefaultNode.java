@@ -13,7 +13,6 @@ public class DefaultNode extends Node{
 
     @Override
     public void execute(Map<String, Object> context) {
-        System.out.println("threadName:" + Thread.currentThread().getName());
         System.out.println("DefaultNode execute,i am " + this.getName());
     }
 }

@@ -5,9 +5,7 @@ import com.sqg.flow.config.FlowConfig;
 import com.sqg.flow.config.NodeConfig;
 import com.sqg.flow.enums.FlowStatusEnum;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Flow {
     List<Node> nodes;
@@ -18,22 +16,32 @@ public class Flow {
     }
 
     public Flow createFlow(FlowConfig flowConfig){
-        nodes = loadNodes(flowConfig.getNodes());
-
+        nodes = loadNodes(flowConfig.getNodes(),null);
         return this;
     }
 
-    private List<Node> loadNodes(List<NodeConfig> nodeConfigs) {
+    public Flow createFlow(FlowConfig flowConfig, Map<String,NodeFactory> nodeFactories){
+        nodes = loadNodes(flowConfig.getNodes(),nodeFactories);
+        return this;
+    }
+
+    private List<Node> loadNodes(List<NodeConfig> nodeConfigs, Map<String,NodeFactory> nodeFactories) {
+        if (nodeFactories == null){
+            nodeFactories = new HashMap<>();
+        }
         LinkedList<Node> nodeLinkedList = new LinkedList<>();
         for (NodeConfig nodeConfig : nodeConfigs) {
-            Node node = createNode(nodeConfig);
+            Node node = createNode(nodeConfig,nodeFactories);
             nodeLinkedList.add(node);
         }
         return nodeLinkedList;
     }
 
-    public Node createNode(NodeConfig nodeConfig) {
-
+    public Node createNode(NodeConfig nodeConfig,Map<String,NodeFactory> nodeFactories) {
+        NodeFactory nodeFactory = nodeFactories.get(nodeConfig.getType());
+        if (nodeFactory != null){
+            return nodeFactory.createNode(nodeConfig);
+        }
         if (nodeConfig.getType().equals("startNode")){
             return new StartNode(nodeConfig.getName());
         }
@@ -42,7 +50,7 @@ public class Flow {
         }
         if ("ParallelNode".equals(nodeConfig.getType())){
             ParallelNode parallelNode = new ParallelNode(nodeConfig.getName());
-            parallelNode.setNodes(loadNodes(nodeConfig.getParallelNodes()));
+            parallelNode.setNodes(loadNodes(nodeConfig.getParallelNodes(),nodeFactories));
             return parallelNode;
         }
         return new DefaultNode(nodeConfig.getName());
